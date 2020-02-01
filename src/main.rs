@@ -22,7 +22,7 @@ fn jap_numeral(number: u32) -> Result<String, ()> {
     if number >=  100 { string.push_str(nums.hundred); }
     if number >=   20 { string.push_str(nums.digits[number % 100 / 10]); }
     if number >=   10 { string.push_str(nums.ten); }
-    if number >=    1 { string.push_str(nums.digits[number % 10]); }
+    if number !=    0 { string.push_str(nums.digits[number % 10]); }
     else              { string.push_str(nums.digits[0]) };
     Ok(string)
 }
