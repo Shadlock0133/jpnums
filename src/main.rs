@@ -1,39 +1,48 @@
 use rand::Rng;
 
-struct Reading {
+struct Numerals {
     digits: [&'static str; 10],
     ten: &'static str,
     hundred: &'static str,
+    thousand: &'static str,
 }
 
-// On readings from 0 to 9
-const ON: Reading = Reading {
+// Japanese numerals
+const NUMERALS: Numerals = Numerals {
+    digits: ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"],
+    ten: "十",
+    hundred: "百",
+    thousand: "千",
+};
+
+// On reading
+const ON_READING: Numerals = Numerals {
     digits: ["れい", "いち", "に", "さん", "し", "ご", "ろく", "しち", "はち", "きゅう"],
     ten: "じゅう",
     hundred: "ひゃく",
+    thousand: "せん",
 };
 
-fn jap_numeral(number: u32) -> Result<String, ()> {
+fn jap_numeral(number: u32, numerals: Numerals) -> Result<String, ()> {
     let number = number as usize;
-    let nums = ON;
     let mut string = String::new();
     if number >= 1000 { return Err(()); }
-    if number >=  200 { string.push_str(nums.digits[number % 1000 / 100]); }
-    if number >=  100 { string.push_str(nums.hundred); }
-    if number >=   20 { string.push_str(nums.digits[number % 100 / 10]); }
-    if number >=   10 { string.push_str(nums.ten); }
-    if number !=    0 { string.push_str(nums.digits[number % 10]); }
-    else              { string.push_str(nums.digits[0]) };
+    if number >=  200 { string.push_str(numerals.digits[number % 1000 / 100]); }
+    if number >=  100 { string.push_str(numerals.hundred); }
+    if number >=   20 { string.push_str(numerals.digits[number % 100 / 10]); }
+    if number >=   10 { string.push_str(numerals.ten); }
+    if number !=    0 { string.push_str(numerals.digits[number % 10]); }
+    else              { string.push_str(numerals.digits[0]) };
     Ok(string)
 }
 
 fn main() {
     let mut rng = rand::thread_rng();
     println!("Kon'nichiwa!");
-    // TODO: choosable difficulty
+    // TODO: add menu, choosable difficulty
     loop {
-        let number = rng.gen_range(0, 100);
-        println!("{}", jap_numeral(number).unwrap());
+        let number = rng.gen_range(0, 1000);
+        println!("{}", jap_numeral(number, NUMERALS).unwrap());
 
         'valid_anwser: loop {
             let mut input = String::new();
