@@ -1,7 +1,8 @@
 [package]
-authors = ["Shadlock0133 <tomek-kubel2@wp.pl>"]
+authors = ["Aurora <tomek-kubel2@wp.pl>"]
 name = "jpnums"
-version = "0.0.1"
+version = "0.0.2"
+edition = "2018"
 
 [dependencies]
-rand = "0.3.14"
+rand = "0.7.3"
